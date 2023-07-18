@@ -35,7 +35,7 @@ class PopulateEntities extends Command
         $response = Http::get('https://api.publicapis.org/entries');
 
         $this->withProgressBar(collect(json_decode($response->body())->entries)
-        ->whereIn('Category', $categories->pluck('category')->all()), function ($entry) use ($categories) {
+            ->whereIn('Category', $categories->pluck('category')->all()), function ($entry) use ($categories) {
             $category_id = $categories->where('category', $entry->Category)->first()->id;
             Entity::create([
                 'api' => $entry->API,
